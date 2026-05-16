@@ -1,14 +1,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import folium
+import geopandas as gpd
+import os
 
 st.set_page_config(page_title="CalVegWatch", layout="wide")
 
 st.title("🌳 CalVegWatch")
 st.subheader("Vegetation Encroachment Risk Detection — California Transmission Lines")
 
-# Load data
-df = pd.read_csv(r"D:\Profession\My_Space\DS\ML\My_Projects\Vegetation_Encroachment_Risk_Detection_California_Transmission_Lines\outputs\predictions.csv")
+# Load data using relative paths
+df = pd.read_csv("outputs/predictions.csv")
 
 # Metrics
 col1, col2, col3, col4 = st.columns(4)
@@ -19,9 +22,9 @@ col4.metric("Low Risk", "6,455")
 
 st.markdown("---")
 
-# Map — load pre-saved HTML directly
+# Map
 st.markdown("### 🗺️ Risk Map")
-with open(r"D:\Profession\My_Space\DS\ML\My_Projects\Vegetation_Encroachment_Risk_Detection_California_Transmission_Lines\outputs\risk_map.html", encoding='utf-8') as f:
+with open("outputs/risk_map.html", encoding='utf-8') as f:
     map_html = f.read()
 st.components.v1.html(map_html, height=600)
 
